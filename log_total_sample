@@ -10,7 +10,6 @@ do
          BEGIN{ zerocount=0; sum=0 }
                      { sum+=$NF } 
                      { if( 0==$NF) { zerocount+=1 } }
-         #END{ print $1, $NR, sum/NR, zerocount }
          END{ print $1, NR, sum, sum/NR ,zerocount }
          '
 done
