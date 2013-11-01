@@ -57,5 +57,10 @@ uniq -c
  find . -name \*~ -print0 | xargs -0 ls -la
  find . -name \*~ -print0 | xargs -0 rm
  find . -name \*~ -print0 | xargs -0 mv -t R.I.P/
+ 
+■1h後のdataを引数に渡す
+cronに仕込むときにラップしたりする。
+hoge.sh `date --date '1 hours ago' +%Y%m%d%H`
+
 
 
