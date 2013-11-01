@@ -62,5 +62,9 @@ uniq -c
 cronに仕込むときにラップしたりする。
 hoge.sh `date --date '1 hours ago' +%Y%m%d%H`
 
+■<></>の形のリザルトを整形
+export QUERY="https://hoge"
+wget -O- -q "${QUERY}" | sed -r -e "s/<\/[^>]+>/\n/g" | sed -r -e "s/<\/[^>]+>/\n/g"
+
 
 
