@@ -15,7 +15,7 @@ echo "in target direcotory?"
 read 
 
 # リストB作成
-egrep -o -r --color  \\$\{.+?\} * | awk -F':' '{ print $2 }' | tr " " "\n" | grep "\\$" | sort | uniq  > reslt_list.txt
+egrep -o -r \\$\{.+?\} * | awk -F':' '{ print $2 }' | tr " " "\n" | grep "\\$" | sort | uniq  > reslt_list.txt
 
 for item in `cat reslt_list.txt`
 do
