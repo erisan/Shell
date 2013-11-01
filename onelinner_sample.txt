@@ -1,0 +1,61 @@
+■ <hoge>HUGA</hoge>の書式からHUGAのみを取り出す。
+
+grep "<hoge>" [対象ファイル] | awk -F':' '{ print $2 }' | sed -e "s/<hoge>\(.\+\)<\/hoge>/\1/g"  > list.txt
+
+■ dir１中のfileのプロパティをdir2のものに置き換える
+
+for file in `ls dir1/file*`
+do
+  export RESULT=`egrep "^KEYWORD" $file`
+  echo $file: $RESULT
+  # sed
+  read
+  sed -i -r "s/^KEYWORD.+/$RESULT/g" dir1/${file}
+done
+
+■curlでpostする @にポストするファイルを指定する
+curl "http://POSTURL/" -H "Content-Type: text/xml" --data @hoge_file
+
+■ 引数チェック
+if [ $# -ne 1 ]
+then
+ echo "please set prop"
+ exit 0
+fi
+
+■数値判断
+# 数値同士で演算を行った場合は「0」、数値同士でも計算結果が 0 になる場合は「1」、
+# 数値以外で演算を行った場合(計算できない場合)は「2 以上」が終了ステータス
+function IsNumeric() {
+    if [ $# -ne 1 ]; then
+         return 1
+    fi
+    expr "$1" + 1 >/dev/null 2>&1
+    if [ $? -ge 2 ]; then
+         return 1
+    fi
+    return 0
+}
+
+
+if IsNumeric $num
+then
+   export count=$num
+else
+   echo " $num is not Numeric"
+   Usage
+fi
+
+■便利なオプション
+egrep --color
+grep -o
+mv -t
+ls -A
+uniq -c
+
+■便利なfind
+ find . -name \*~ -print0 | xargs -0 ls -la
+ find . -name \*~ -print0 | xargs -0 rm
+ find . -name \*~ -print0 | xargs -0 mv -t R.I.P/
+
+
