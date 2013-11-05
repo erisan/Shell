@@ -2,6 +2,16 @@
 
 grep "<hoge>" [対象ファイル] | awk -F':' '{ print $2 }' | sed -e "s/<hoge>\(.\+\)<\/hoge>/\1/g"  > list.txt
 
+■HTMLタグを取り除く
+sed -e 's/<[^>]*>//g'
+ # 例では、'[^>]' が「'>' ではない」文字です。
+ # その後の '*' で長さ0、または長さ1以上の「'>' を含まない文字列」の意味になります
+ # 「'<' 記号で始まり、'>' 記号ではない文字が続き、'>' 記号で終わっている」ため<xxx>のみがhitする。
+
+■空白をsedする
+sed "s/  */ /g"
+ # 例　grep "TR" table.html  | sed -e 's/<[^>B]*>/ /g' | sed -e 's/<BR>//g' | sed "s/  */ /g"
+ 
 ■ dir１中のfileのプロパティをdir2のものに置き換える
 
 for file in `ls dir1/file*`
