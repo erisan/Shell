@@ -1,0 +1,37 @@
+# SSHの鍵周りのコマンド
+
+# 鍵ペア生成。自分のディレクトリで実行
+ssh-keygen -t rsa
+# パスフレーズを聞かれるので入力
+# .sshがないときはここで生成してくれる
+# .ssh/の下にid_rsa(秘密鍵)  id_rsa.pub(公開鍵)が生成される
+#複数の鍵がある時は名前を変えて秘密鍵はパーミッションを自分だけに
+mv id_rsa id_rsa1.hoge
+chmod 600 ~/.ssh/id_rsa.hoge
+#公開鍵は接続先に転送し ~/.ssh/authorized_keysに追記する。（ファイルなかったら作る）
+scp ~/.ssh/id_rsa.pub <ユーザ名>@接続先:/home/<ユーザ名>/
+#接続先で作業　
+cat id_rsa.pub >> authorized_keys
+# authorized_keysがない場合は
+mv id_rsa.pub authorized_keys
+rm id_rsa.pub
+#パーミッションは自分だけ
+chmod 600 authorized_keys
+
+#------------------------------------------------------------
+# ssh-copy-idコマンドはこのコマンドで登録処理をしてくれるコマンド
+# ssh-copy-id -i id_rsa.hoge ユーザ名@接続先
+# -n　オプションでdry-run
+#------------------------------------------------------------
+
+#パスフレーズを変更したい時
+ssh-keygen -p
+
+#ログインする時
+ssh -i <秘密鍵> ユーザ名@接続先
+# ポート番号変えてる時は-pオプション
+ssh -i <秘密鍵> -p <ポート番号> ユーザ名@接続先
+
+
+
+
